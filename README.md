@@ -55,7 +55,7 @@ spec:
         - containerPort: 9113
           name: prometheus
           protocol: TCP
-
+```
 
 
 After deploying the NGINX Ingress Controller with Prometheus metrics enabled, you can test if it's properly configured using the following steps:
