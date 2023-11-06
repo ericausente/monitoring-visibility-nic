@@ -282,3 +282,4 @@ spec:
   - name: frontend
     port: 9090
     targetPort: 9090
+  type: LoadBalancer
