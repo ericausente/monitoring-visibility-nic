@@ -62,37 +62,50 @@ After deploying the NGINX Ingress Controller with Prometheus metrics enabled, yo
 
 Check the NGINX Ingress Controller pod status:
 
-   ```shell
-   kubectl get pods -n nginx-ingress -o wide
+```
+kubectl get pods -n nginx-ingress -o wide
+```
 
 Ensure that the pod is running and note its IP address.
 
-    Create a network multitool pod for testing:
+Create a network multitool pod for testing:
 
-    shell
-
+```
 kubectl run nm2 -it --rm --image=wbitt/network-multitool:minimal sh
+```
 
 Use curl to access the Prometheus metrics endpoint on the NGINX Ingress Controller pod's IP address:
-
-shell
-
+```
 curl http://<NGINX-Ingress-Controller-IP>:9113/metrics
+```
 
 Replace <NGINX-Ingress-Controller-IP> with the actual IP address of the NGINX Ingress Controller pod obtained in step 1.
 
 Example:
+```
+# curl http://10.244.4.93:9113/metrics
 
-shell
+# HELP nginx_ingress_controller_ingress_resources_total Number of handled ingress resources
+# TYPE nginx_ingress_controller_ingress_resources_total gauge
+nginx_ingress_controller_ingress_resources_total{class="nginx",type="master"} 0
+nginx_ingress_controller_ingress_resources_total{class="nginx",type="minion"} 0
+nginx_ingress_controller_ingress_resources_total{class="nginx",type="regular"} 0
+# HELP nginx_ingress_controller_nginx_last_reload_milliseconds Duration in milliseconds of the last NGINX reload
+# TYPE nginx_ingress_controller_nginx_last_reload_milliseconds gauge
+nginx_ingress_controller_nginx_last_reload_milliseconds{class="nginx"} 155
+# HELP nginx_ingress_controller_nginx_last_reload_status Status of the last NGINX reload
+# TYPE nginx_ingress_controller_nginx_last_reload_status gauge
+nginx_ingress_controller_nginx_last_reload_status{class="nginx"} 1
+# HELP nginx_ingress_controller_nginx_reload_errors_total Number of unsuccessful NGINX reloads
+# TYPE nginx_ingress_controller_nginx_reload_errors_total counter
+```
 
-    curl http://10.244.4.93:9113/metrics
-
-    If the NGINX Ingress Controller is properly configured, you should receive Prometheus metrics data in the response.
+If the NGINX Ingress Controller is properly configured, you should receive Prometheus metrics data in the response.
 
 Make sure to replace <NGINX-Ingress-Controller-IP> with the correct IP address obtained from your NGINX Ingress Controller pod. This test confirms that the Prometheus metrics are accessible and that the NGINX Ingress Controller is correctly configured.
 
 
-# Prometheus and Grafana Creation 
+# Prometheus and Grafana Resource Creation 
 
 # Create the monitoring namespace
 kubectl create ns monitoring
@@ -108,6 +121,4 @@ kubectl apply -f prometheus.yaml
 # Note: It may take a few moments for the external IP to be assigned.
 kubectl get svc -n monitoring
 
-
-
-    Verify the setup and access Prometheus and Grafana for monitoring.
+Verify the setup and access Prometheus and Grafana for monitoring.
