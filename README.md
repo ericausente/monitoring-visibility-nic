@@ -107,18 +107,25 @@ Make sure to replace <NGINX-Ingress-Controller-IP> with the correct IP address o
 
 # Prometheus and Grafana Resource Creation 
 
-# Create the monitoring namespace
+### Create the monitoring namespace
+```
 kubectl create ns monitoring
+```
 
-# Apply Grafana configuration
+### Apply Grafana configuration
+```
 kubectl apply -f grafana.yaml
+```
 
-# Apply Prometheus configuration
+### Apply Prometheus configuration
+```
 kubectl apply -f prometheus.yaml
+```
 
-# Verify the external IP address of Prometheus and Grafana services
-
-# Note: It may take a few moments for the external IP to be assigned.
+### Verify the external IP address of Prometheus and Grafana services
+Note: It may take a few moments for the external IP to be assigned.
+```
 kubectl get svc -n monitoring
+```
 
 Verify the setup and access Prometheus and Grafana for monitoring.
